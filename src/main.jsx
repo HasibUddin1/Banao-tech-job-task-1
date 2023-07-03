@@ -10,6 +10,7 @@ import Main from './Layout/Main.jsx';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 import AuthProvider from './providers/AuthProvider.jsx';
+import PrivateRoute from './routes/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <App></App>
+        element: <PrivateRoute><App></App></PrivateRoute>
       },
       {
         path: 'login',

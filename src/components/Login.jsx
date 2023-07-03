@@ -22,10 +22,10 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="text" placeholder="password" className="input input-bordered" />
+                                <input type="password" placeholder="password" className="input input-bordered" />
                                 <label>
                                     <Link className="label-text-alt link link-hover text-base font-semibold">Forgot password?</Link>
-                                    <Link to='/register' className="label-text-alt link link-hover block mt-2 text-base font-semibold">Already have an account?</Link>
+                                    <Link to='/register' className="label-text-alt link link-hover block mt-2 text-base font-semibold">New to this site?</Link>
                                 </label>
                             </div>
                             <div className="form-control mt-6">

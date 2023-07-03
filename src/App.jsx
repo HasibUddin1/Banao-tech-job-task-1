@@ -5,9 +5,9 @@ function App() {
 
   return (
     <>
-      <div className="card">
-        <h1 className='mt-2'>
-          Welcome to the website
+      <div className="card mt-10">
+        <h1 className='mt-2 text-4xl text-center'>
+          Welcome to the website, UserName
         </h1>
       </div>
     </>

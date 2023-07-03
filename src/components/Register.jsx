@@ -39,7 +39,6 @@ const Register = () => {
         createUser(email, password)
             .then(result => {
                 const registeredUser = result.user
-                // console.log(registeredUser)
                 updateUsersProfile(registeredUser, name)
                     .then(() => {
                         Swal.fire({

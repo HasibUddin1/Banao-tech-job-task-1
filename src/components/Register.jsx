@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
 
@@ -9,6 +9,8 @@ const Register = () => {
     const { createUser, updateUsersProfile } = useContext(AuthContext)
 
     const [error, setError] = useState('')
+
+    const navigate = useNavigate()
 
     const handleRegister = event => {
         event.preventDefault()
@@ -47,6 +49,7 @@ const Register = () => {
                             confirmButtonText: 'Ok'
                           })
                           setError('')
+                          navigate('/')
                     })
                     .catch(error => {
                         console.log(error)

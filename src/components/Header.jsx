@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 const Header = () => {
 
-    const { logOut } = useContext(AuthContext)
+    const { logOut, user } = useContext(AuthContext)
 
     const handleLogout = () => {
         logOut()
@@ -27,13 +27,17 @@ const Header = () => {
         <div className=" font-bold py-5 bg-slate-800 text-white">
             <div className="flex justify-between w-9/12 mx-auto">
                 <div className="text-3xl">
-                    <h1>Email Authentication Demo</h1>
+                    <h1>Email Authentication Task</h1>
                 </div>
                 <div className="text-xl font-semibold flex gap-5 items-center">
                     <Link to='/'>Home</Link>
-                    <Link to='/login'>Login</Link>
                     <Link to='/register'>Register</Link>
-                    <button onClick={handleLogout} className="bg-primary px-6 py-1 rounded-xl hover:bg-purple-700 ease-in-out duration-200">Logout</button>
+
+                    {
+                        user ?
+                            <button onClick={handleLogout} className="bg-primary px-6 py-1 rounded-xl hover:bg-purple-700 ease-in-out duration-200">Logout</button> :
+                            <Link to='/login'>Login</Link>
+                    }
                 </div>
             </div>
         </div>

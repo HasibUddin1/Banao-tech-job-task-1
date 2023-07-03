@@ -1,7 +1,14 @@
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const Login = () => {
+
+    const { signIn } = useContext(AuthContext)
+
+    const [error, setError] = useState('')
 
     const handleLogin = event => {
         event.preventDefault()
@@ -10,7 +17,32 @@ const Login = () => {
         const email = form.email.value
         const password = form.password.value
 
-        console.log(email, password)
+        if (!email) {
+            setError('Email field cannot be empty')
+            return
+        }
+
+        if (!password) {
+            setError('Password field cannot be empty')
+            return
+        }
+
+        setError('')
+
+        signIn(email, password)
+            .then(() => {
+                setError('')
+                Swal.fire({
+                    title: 'Success',
+                    text: 'You have successfully logged in',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                })
+            })
+            .catch(error => {
+                console.log(error)
+                setError(error.message)
+            })
     }
 
     return (
@@ -45,6 +77,7 @@ const Login = () => {
                                         <input className="btn btn-primary w-1/2" type="submit" value="Login" />
                                     </div>
                                 </div>
+                                {error && <p className="text-red-500 font-semibold">{error}</p>}
                             </form>
                         </div>
                     </div>

@@ -1,7 +1,28 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const Header = () => {
+
+    const { logOut } = useContext(AuthContext)
+
+    const handleLogout = () => {
+        logOut()
+            .then(() => {
+                Swal.fire({
+                    title: 'Success',
+                    text: 'You have successfully logged out',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     return (
         <div className=" font-bold py-5 bg-slate-800 text-white">
             <div className="flex justify-between w-9/12 mx-auto">
@@ -12,7 +33,7 @@ const Header = () => {
                     <Link to='/'>Home</Link>
                     <Link to='/login'>Login</Link>
                     <Link to='/register'>Register</Link>
-                    <button className="bg-primary px-6 py-1 rounded-xl hover:bg-purple-700 ease-in-out duration-200">Logout</button>
+                    <button onClick={handleLogout} className="bg-primary px-6 py-1 rounded-xl hover:bg-purple-700 ease-in-out duration-200">Logout</button>
                 </div>
             </div>
         </div>

@@ -1,11 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const Register = () => {
 
     const { createUser, updateUsersProfile } = useContext(AuthContext)
+
+    const [error, setError] = useState('')
 
     const handleRegister = event => {
         event.preventDefault()
@@ -15,20 +18,44 @@ const Register = () => {
         const email = form.email.value
         const password = form.password.value
 
+        if(!name){
+            setError('Name field cannot be empty')
+            return
+        }
+
+        if(!email){
+            setError('Email field cannot be empty')
+            return
+        }
+
+        if(!password){
+            setError('Password field cannot be empty')
+            return
+        }
+        setError('')
+
         createUser(email, password)
             .then(result => {
                 const registeredUser = result.user
-                console.log(registeredUser)
+                // console.log(registeredUser)
                 updateUsersProfile(registeredUser, name)
                     .then(() => {
-                        alert('User profile has been successfully updated')
+                        Swal.fire({
+                            title: 'Success',
+                            text: 'You have successfully created your profile',
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                          })
+                          setError('')
                     })
                     .catch(error => {
                         console.log(error)
+                        setError(error.message)
                     })
             })
             .catch(error => {
                 console.log(error)
+                setError(error.message)
             })
     }
 
@@ -69,6 +96,7 @@ const Register = () => {
                                         <input className="btn btn-primary w-1/2" type="submit" value="Register" />
                                     </div>
                                 </div>
+                                {error && <p className="text-red-500 font-semibold">{error}</p>}
                             </form>
                         </div>
                     </div>
